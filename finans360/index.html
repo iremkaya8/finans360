@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Finans360 - Yaşam maliyeti analizi, borç yönetimi, finansal sağlık skoru ve akıllı finansal analiz sunan profesyonel bütçe yönetim sistemi.">
+    <title>Finans360 – Yaşam Maliyeti ve Borç Yönetim Sistemi</title>
+    <!-- Google Fonts - Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- CSS Dosyası -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sol Menü / Sidebar -->
+        <aside class="sidebar" id="app-sidebar">
+            <div class="sidebar-logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="var(--color-success)"/>
+                </svg>
+                <span>Finans<span class="logo-accent">360</span></span>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#section-dashboard" class="nav-link active" id="nav-dashboard">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                    <span>Genel Durum</span>
+                </a>
+                <a href="#section-expenses" class="nav-link" id="nav-expenses">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13a4 4 0 0 0 4 4"></path><path d="M8 15c0-5 4-8 4-8"></path><path d="M7 10l7-2"></path><path d="M7 13l7-2"></path></svg>
+                    <span>Yaşam Maliyeti</span>
+                </a>
+                <a href="#section-debts" class="nav-link" id="nav-debts">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    <span>Borç & Kredi</span>
+                </a>
+                <a href="#section-strategy" class="nav-link" id="nav-strategy">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg>
+                    <span>Borç Stratejisi</span>
+                </a>
+                <a href="#section-reports" class="nav-link" id="nav-reports">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+                    <span>Detaylı Analiz</span>
+                </a>
+                <a href="#section-history" class="nav-link" id="nav-history">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    <span>Geçmiş Trendleri</span>
+                </a>
+                <a href="#section-household" class="nav-link" id="nav-household">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <span>Hane & Paylaşım</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="theme-info" style="margin-bottom: 12px;">
+                    <span class="dot active"></span>
+                    <span>Koyu Tema Etkin</span>
+                </div>
+                <button class="btn btn-secondary" id="btn-logout" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 12px; font-size: 13px; border-radius: var(--radius-sm);">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    <span>Çıkış Yap</span>
+                </button>
+                <button class="btn btn-danger-outline" id="btn-reset-data" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 12px; font-size: 13px; border-radius: var(--radius-sm); margin-top: 8px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    <span>Verileri Sıfırla</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Sağ Ana İçerik Alanı -->
+        <main class="main-content">
+            <!-- Üst Bar -->
+            <header class="app-header">
+                <div class="header-search">
+                    <h1>Finansal Yönetim Portalı</h1>
+                </div>
+                <div class="header-profile" style="display: flex; align-items: center; gap: 15px;">
+                    <div class="currency-selector-wrapper" style="position: relative;">
+                        <select id="currency-select" style="padding: 6px 12px; font-size: 13px; font-weight: 700; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-primary); cursor: pointer; outline: none; transition: var(--transition);">
+                            <option value="TRY">₺ TRY</option>
+                            <option value="USD">$ USD</option>
+                            <option value="EUR">€ EUR</option>
+                        </select>
+                    </div>
+                    <div class="user-display" id="user-display" style="font-size: 14px; font-weight: 600; color: var(--color-primary);">demo@finans360.com</div>
+                    <div class="date-display" id="current-date-display">19 Haziran 2026</div>
+                </div>
+            </header>
+
+            <!-- İÇERİK BÖLÜMLERİ -->
+            <div class="content-body">
+                
+                <!-- BÖLÜM 1: GENEL DURUM (DASHBOARD) -->
+                <section id="section-dashboard" class="content-section active">
+                    <div class="section-title">
+                        <h2>Finansal Dashboard</h2>
+                        <p>Genel finansal durumunuzun anlık özeti.</p>
+                    </div>
+
+                    <!-- Finansal Bildirimler ve Limit Aşımları Paneli -->
+                    <div id="alerts-panel" class="glass-card" style="display: none; margin-bottom: 25px; border-color: rgba(244, 63, 94, 0.3); background: rgba(244, 63, 94, 0.02); padding: 15px 20px;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; color: var(--color-danger); font-weight: 700; font-size: 14px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                            <span>Finansal Uyarılar ve Limit Aşımları</span>
+                        </div>
+                        <ul id="alerts-list" style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: var(--text-primary);">
+                            <!-- Dinamik olarak aşım bildirimleri eklenecektir -->
+                        </ul>
+                    </div>
+
+                    <!-- Dashboard Kart Grubu -->
+                    <div class="cards-grid">
+                        <div class="card card-income">
+                            <div class="card-header">
+                                <span>Toplam Gelir</span>
+                                <div class="card-icon income-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+                                </div>
+                            </div>
+                            <div class="card-value" id="dash-total-income">0,00 ₺</div>
+                            <div class="card-footer text-success">
+                                <span class="trend">Aylık net kazanç</span>
+                            </div>
+                        </div>
+
+                        <div class="card card-expense">
+                            <div class="card-header">
+                                <span>Toplam Gider</span>
+                                <div class="card-icon expense-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+                                </div>
+                            </div>
+                            <div class="card-value" id="dash-total-expense">0,00 ₺</div>
+                            <div class="card-footer text-danger">
+                                <span class="trend" id="dash-mandatory-percentage-label">Gelirin %0.0'ı zorunlu</span>
+                            </div>
+                        </div>
+
+                        <div class="card card-balance">
+                            <div class="card-header">
+                                <span>Kalan Bakiye</span>
+                                <div class="card-icon balance-icon" id="balance-icon-container">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                                </div>
+                            </div>
+                            <div class="card-value" id="dash-remaining-balance">0,00 ₺</div>
+                            <div class="card-footer" id="dash-balance-footer">
+                                <span class="trend">Kullanılabilir tasarruf</span>
+                            </div>
+                        </div>
+
+                        <div class="card card-savings">
+                            <div class="card-header">
+                                <span>Tasarruf Oranı</span>
+                                <div class="card-icon savings-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                </div>
+                            </div>
+                            <div class="card-value" id="dash-savings-rate">0.0%</div>
+                            <div class="card-footer">
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" id="dash-savings-progress" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card card-risk">
+                            <div class="card-header">
+                                <span>Finansal Risk Düzeyi</span>
+                                <div class="card-icon risk-icon" id="risk-icon-container">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                </div>
+                            </div>
+                            <div class="card-value" id="dash-risk-level">-</div>
+                            <div class="card-footer" id="dash-risk-footer">
+                                <span class="trend">Borç ve gider dengesi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sağlık Skoru ve Analiz Bölümü -->
+                    <div class="dashboard-details">
+                        <!-- Finansal Sağlık Skoru Kartı -->
+                        <div class="health-card glass-card">
+                            <div class="card-title-lg">Finansal Sağlık Skoru</div>
+                            <div class="health-gauge-container">
+                                <svg class="gauge-svg" viewBox="0 0 100 100">
+                                    <!-- Arka plan dairesi -->
+                                    <circle class="gauge-bg" cx="50" cy="50" r="40" stroke-width="8" fill="none"></circle>
+                                    <!-- Renkli dolgu dairesi (çevre = 2 * pi * r = 2 * 3.1415 * 40 = 251.32) -->
+                                    <circle class="gauge-fill" id="health-gauge-fill" cx="50" cy="50" r="40" stroke-width="8" stroke-dasharray="251.32" stroke-dashoffset="251.32" fill="none" transform="rotate(-90 50 50)"></circle>
+                                </svg>
+                                <div class="gauge-text">
+                                    <span class="gauge-number" id="health-score-value">0</span>
+                                    <span class="gauge-status" id="health-status-label">Hesaplanıyor...</span>
+                                </div>
+                            </div>
+                            <div class="health-status-desc" id="health-desc-label">Finansal sağlık puanınızı hesaplamak için lütfen sol menüden bütçe ve borç bilgilerinizi güncelleyin.</div>
+                        </div>
+
+                        <!-- Akıllı Finansal Analiz (AI Analizi benzeri) -->
+                        <div class="analysis-card glass-card">
+                            <div class="card-title-lg">Akıllı Finansal Analiz ve Öneriler</div>
+                            <div class="analysis-content" id="smart-analysis-container">
+                                <div class="empty-state">
+                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                                    <p>Veri girişi yapıldıkça sistem size özel akıllı tavsiyeler üretecektir.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tasarruf Hedefleri Planlayıcı Kartı -->
+                    <div class="glass-card" style="margin-top: 30px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color);">
+                            <h3 style="font-size: 16px; font-weight: 700; color: var(--text-primary); margin: 0;">🎯 Tasarruf Hedefleri Planlayıcısı</h3>
+                            <button class="btn btn-primary" id="btn-add-goal-trigger" style="padding: 6px 12px; font-size: 12px; border-radius: var(--radius-sm);">Yeni Hedef Ekle</button>
+                        </div>
+                        
+                        <div id="goal-form-wrapper" style="display: none; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); padding: 15px; border-radius: var(--radius-sm); margin-bottom: 20px; animation: fadeIn 0.3s ease;">
+                            <form id="goal-form" class="form-container">
+                                <div class="form-group-row">
+                                    <div class="form-group">
+                                        <label for="input-goal-name">Hedef Adı</label>
+                                        <input type="text" id="input-goal-name" placeholder="Örn. Yaz Tatili veya Ev Peşinatı" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input-goal-amount">Hedef Tutar</label>
+                                        <div class="input-wrapper">
+                                            <input type="number" id="input-goal-amount" min="1" placeholder="Örn. 50000" step="any" required>
+                                            <span class="input-addon currency-symbol">₺</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input-goal-date">Hedef Tarih (Ay)</label>
+                                        <input type="month" id="input-goal-date" required>
+                                    </div>
+                                </div>
+                                <div style="display:flex; gap: 10px; justify-content: flex-end; margin-top: 10px;">
+                                    <button type="button" class="btn btn-secondary" id="btn-cancel-goal" style="padding: 8px 16px; font-size: 12px;">Vazgeç</button>
+                                    <button type="submit" class="btn btn-primary" style="padding: 8px 16px; font-size: 12px;">Hedefi Kaydet</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table" style="font-size: 13.5px;">
+                                <thead>
+                                    <tr>
+                                        <th>Hedef Adı</th>
+                                        <th>Hedef Tutar</th>
+                                        <th>Hedef Tarih</th>
+                                        <th>Kalan Süre</th>
+                                        <th>Aylık Gerekli Birikim</th>
+                                        <th>İlerleme Durumu</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="goals-table-body">
+                                    <tr class="empty-goals-row">
+                                        <td colspan="7" class="text-center text-muted">Henüz eklenmiş bir tasarruf hedefi bulunmamaktadır.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- BÖLÜM 2: YAŞAM MALİYETİ ANALİZİ -->
+                <section id="section-expenses" class="content-section">
+                    <div class="section-title">
+                        <h2>Yaşam Maliyeti Analizi</h2>
+                        <p>Gelir ve harcama detaylarınızı girerek tasarruf potansiyelinizi görün.</p>
+                    </div>
+
+                    <div class="grid-two-columns">
+                        <!-- Sol Kolon: Gider Giriş Formu -->
+                        <div class="glass-card">
+                            <h3 class="card-subtitle">Bütçe Bilgileri</h3>
+                            <form id="budget-form" class="form-container">
+                                <div class="form-group-row">
+                                    <div class="form-group full-width">
+                                        <label for="input-monthly-income">Aylık Toplam Net Gelir (₺)</label>
+                                        <div class="input-wrapper input-success">
+                                            <input type="number" id="input-monthly-income" min="0" placeholder="Örn. 45000" step="any" required>
+                                            <span class="input-addon">₺</span>
+                                        </div>
+                                        <span class="field-hint">Maaş, ek gelir, kira geliri vb. toplamı.</span>
+                                    </div>
+                                </div>
+
+                                <div class="divider">Zorunlu Harcamalar</div>
+                                
+                                <div class="form-group-row">
+                                    <div class="form-group">
+                                        <label for="input-rent">Kira / Ev Kredisi (₺)</label>
+                                        <div class="input-wrapper">
+                                            <input type="number" id="input-rent" min="0" placeholder="0" step="any">
+                                            <span class="input-addon">₺</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input-groceries">Market / Mutfak (₺)</label>
+                                        <div class="input-wrapper">
+                                            <input type="number" id="input-groceries" min="0" placeholder="0" step="any">
+                                            <span class="input-addon">₺</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group-row">
+                                    <div class="form-group">
+                                        <label for="input-transport">Ulaşım / Yakıt (₺)</label>
+                                        <div class="input-wrapper">
+                                            <input type="number" id="input-transport" min="0" placeholder="0" step="any">
+                                            <span class="input-addon">₺</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input-bills">Faturalar (Elektrik, Su, İnternet) (₺)</label>
+                                        <div class="input-wrapper">
+                                            <input type="number" id="input-bills" min="0" placeholder="0" step="any">
+                                            <span class="input-addon">₺</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group-row">
+                                    <div class="form-group">
+                                        <label for="input-education">Eğitim Giderleri (₺)</label>
+                                        <div class="input-wrapper">
+                                            <input type="number" id="input-education" min="0" placeholder="0" step="any">
+                                            <span class="input-addon">₺</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input-health">Sağlık / Sigorta Giderleri (₺)</label>
+                                        <div class="input-wrapper">
+                                            <input type="number" id="input-health" min="0" placeholder="0" step="any">
+                                            <span class="input-addon">₺</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="divider">İsteğe Bağlı & Diğer Harcamalar</div>
+
+                                <div class="form-group-row">
+                                    <div class="form-group">
+                                        <label for="input-social">Sosyal Yaşam / Eğlence (₺)</label>
+                                        <div class="input-wrapper">
+                                            <input type="number" id="input-social" min="0" placeholder="0" step="any">
+                                            <span class="input-addon">₺</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input-others">Diğer / Çeşitli Giderler (₺)</label>
+                                        <div class="input-wrapper">
+                                            <input type="number" id="input-others" min="0" placeholder="0" step="any">
+                                            <span class="input-addon">₺</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Sağ Kolon: Gider Özet Analizi -->
+                        <div class="flex-column gap-lg">
+                            <div class="glass-card">
+                                <h3 class="card-subtitle">Harcama Dağılımı ve Bütçe Dengesi</h3>
+                                <div class="charts-box" style="position: relative; height:240px; margin: 15px 0;">
+                                    <canvas id="chart-expenses-distribution"></canvas>
+                                </div>
+                            </div>
+
+                            <div class="glass-card">
+                                <h3 class="card-subtitle">Bütçe Analiz Oranları</h3>
+                                <div class="budget-ratios-list">
+                                    <div class="ratio-item">
+                                        <div class="ratio-label-row">
+                                            <span>Zorunlu Gider Oranı (Kira, Market vb.)</span>
+                                            <span class="ratio-val" id="ratio-mandatory-val">0%</span>
+                                        </div>
+                                        <div class="progress-bar-container">
+                                            <div class="progress-bar-fill fill-danger" id="ratio-mandatory-progress" style="width: 0%"></div>
+                                        </div>
+                                        <span class="field-hint" id="ratio-mandatory-desc">Hedef: Gelirin %50'sinin altında olmasıdır.</span>
+                                    </div>
+
+                                    <div class="ratio-item">
+                                        <div class="ratio-label-row">
+                                            <span>İsteğe Bağlı Gider Oranı (Eğlence vb.)</span>
+                                            <span class="ratio-val" id="ratio-discretionary-val">0%</span>
+                                        </div>
+                                        <div class="progress-bar-container">
+                                            <div class="progress-bar-fill fill-warning" id="ratio-discretionary-progress" style="width: 0%"></div>
+                                        </div>
+                                        <span class="field-hint" id="ratio-discretionary-desc">Hedef: Gelirin %30'unun altında kalmasıdır.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Kategori Harcama Limitleri Ayarı -->
+                            <div class="glass-card">
+                                <h3 class="card-subtitle">Harcama Limitleri Ayarı</h3>
+                                <p style="font-size: 12.5px; color: var(--text-secondary); margin-bottom: 15px;">Harcamalarınızı kontrol altında tutmak için aylık maksimum limitler belirleyin.</p>
+                                <form id="limits-form" class="form-container" style="gap: 12px;">
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                        <div class="form-group">
+                                            <label for="input-limit-groceries" style="font-size: 12px;">Market Limiti</label>
+                                            <div class="input-wrapper">
+                                                <input type="number" id="input-limit-groceries" min="0" placeholder="Limit Yok" style="padding: 8px 12px; font-size: 13px;">
+                                                <span class="input-addon currency-symbol">₺</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="input-limit-transport" style="font-size: 12px;">Ulaşım Limiti</label>
+                                            <div class="input-wrapper">
+                                                <input type="number" id="input-limit-transport" min="0" placeholder="Limit Yok" style="padding: 8px 12px; font-size: 13px;">
+                                                <span class="input-addon currency-symbol">₺</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                        <div class="form-group">
+                                            <label for="input-limit-bills" style="font-size: 12px;">Faturalar Limiti</label>
+                                            <div class="input-wrapper">
+                                                <input type="number" id="input-limit-bills" min="0" placeholder="Limit Yok" style="padding: 8px 12px; font-size: 13px;">
+                                                <span class="input-addon currency-symbol">₺</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="input-limit-social" style="font-size: 12px;">Sosyal Yaşam Limiti</label>
+                                            <div class="input-wrapper">
+                                                <input type="number" id="input-limit-social" min="0" placeholder="Limit Yok" style="padding: 8px 12px; font-size: 13px;">
+                                                <span class="input-addon currency-symbol">₺</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- BÖLÜM 3: BORÇ VE KREDİ YÖNETİMİ -->
+                <section id="section-debts" class="content-section">
+                    <div class="section-title">
+                        <h2>Borç ve Kredi Yönetimi</h2>
+                        <p>Kredi yükünüzü, aylık taksitleri ve faiz maliyetlerini takip edin.</p>
+                    </div>
+
+                    <!-- Borç Dashboard Özet Kartları -->
+                    <div class="cards-grid-small">
+                        <div class="mini-card">
+                            <span class="mini-card-title">Toplam Borç Yükü</span>
+                            <span class="mini-card-value text-danger" id="debt-summary-total-principal">0,00 ₺</span>
+                        </div>
+                        <div class="mini-card">
+                            <span class="mini-card-title">Toplam Ödenecek (Faiz Dahil)</span>
+                            <span class="mini-card-value" id="debt-summary-total-repayment">0,00 ₺</span>
+                        </div>
+                        <div class="mini-card">
+                            <span class="mini-card-title">Aylık Toplam Taksit</span>
+                            <span class="mini-card-value text-warning" id="debt-summary-monthly-payment">0,00 ₺</span>
+                        </div>
+                        <div class="mini-card">
+                            <span class="mini-card-title">Toplam Ödenecek Faiz</span>
+                            <span class="mini-card-value" id="debt-summary-total-interest">0,00 ₺</span>
+                        </div>
+                        <div class="mini-card">
+                            <span class="mini-card-title">Son Borç Bitiş Tarihi</span>
+                            <span class="mini-card-value" id="debt-summary-end-date">-</span>
+                        </div>
+                    </div>
+
+                    <div class="grid-two-columns" style="margin-top: 20px;">
+                        <!-- Sol Kolon: Borç Giriş Formu -->
+                        <div class="glass-card">
+                            <h3 class="card-subtitle" id="debt-form-title">Yeni Borç / Kredi Ekle</h3>
+                            <form id="debt-form" class="form-container">
+                                <input type="hidden" id="input-debt-id">
+                                
+                                <div class="form-group-row">
+                                    <div class="form-group">
+                                        <label for="input-debt-name">Borç / Kredi Adı</label>
+                                        <input type="text" id="input-debt-name" placeholder="Örn. Garanti İhtiyaç Kredisi" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input-debt-type">Borç Türü</label>
+                                        <select id="input-debt-type" required>
+                                            <option value="İhtiyaç Kredisi">İhtiyaç Kredisi</option>
+                                            <option value="Konut Kredisi">Konut Kredisi</option>
+                                            <option value="Taşıt Kredisi">Taşıt Kredisi</option>
+                                            <option value="Kredi Kartı Taksiti">Kredi Kartı Taksiti</option>
+                                            <option value="Bireysel Borç">Bireysel Borç</option>
+                                            <option value="Diğer">Diğer</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group-row">
+                                    <div class="form-group">
+                                        <label for="input-debt-amount">Kredi Tutarı / Ana Para (₺)</label>
+                                        <div class="input-wrapper input-danger">
+                                            <input type="number" id="input-debt-amount" min="1" placeholder="Örn. 100000" step="any" required>
+                                            <span class="input-addon">₺</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input-debt-interest">Aylık Faiz Oranı (%)</label>
+                                        <div class="input-wrapper">
+                                            <input type="number" id="input-debt-interest" min="0" placeholder="Örn. 3.75" step="0.01" required>
+                                            <span class="input-addon">%</span>
+                                        </div>
+                                        <span class="field-hint">Yıllık değil, aylık faiz oranı girin.</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group-row">
+                                    <div class="form-group">
+                                        <label for="input-debt-maturity">Vade (Ay)</label>
+                                        <input type="number" id="input-debt-maturity" min="1" placeholder="Örn. 12" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input-debt-start-date">İlk Ödeme Tarihi</label>
+                                        <input type="month" id="input-debt-start-date" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-buttons">
+                                    <button type="submit" class="btn btn-primary" id="btn-save-debt">Krediyi Kaydet</button>
+                                    <button type="button" class="btn btn-secondary" id="btn-reset-debt" style="display:none;">İptal</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Sağ Kolon: Aktif Borçlar Listesi -->
+                        <div class="glass-card flex-column">
+                            <h3 class="card-subtitle">Aktif Borçlar ve Krediler</h3>
+                            
+                            <div class="table-responsive" style="flex: 1; max-height: 380px; overflow-y: auto;">
+                                <table class="table" id="debts-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Borç Adı</th>
+                                            <th>Tür</th>
+                                            <th>Kredi Tutarı</th>
+                                            <th>Aylık Taksit</th>
+                                            <th>Vade (Kalan)</th>
+                                            <th>Faiz</th>
+                                            <th>İşlemler</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="debts-table-body">
+                                        <!-- Javascript ile doldurulacaktır -->
+                                        <tr class="empty-row">
+                                            <td colspan="7" class="text-center text-muted">Kayıtlı borç bulunmamaktadır. Yeni borç ekleyebilirsiniz.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- BÖLÜM 3B: BORÇ ÖDEME STRATEJİLERİ (KARTOPU VE ÇIĞ) -->
+                <section id="section-strategy" class="content-section">
+                    <div class="section-title">
+                        <h2>Borç Ödeme Stratejisi Simülatörü</h2>
+                        <p>Kartopu (Snowball) ve Çığ (Avalanche) yöntemlerini karşılaştırarak borçlarınızdan en hızlı ve en az faizle nasıl kurtulacağınızı görün.</p>
+                    </div>
+
+                    <div class="grid-two-columns">
+                        <!-- Sol Kolon: Bütçe Girişi ve Durum Özeti -->
+                        <div class="glass-card flex-column gap-md">
+                            <h3 class="card-subtitle">Strateji Bütçesi ve Borç Özeti</h3>
+                            
+                            <div class="form-container">
+                                <div class="form-group">
+                                    <label for="input-strategy-extra-payment">Aylık Ekstra Ödeme Bütçesi (₺)</label>
+                                    <div class="input-wrapper input-success">
+                                        <input type="number" id="input-strategy-extra-payment" min="0" placeholder="Örn. 5000" step="any">
+                                        <span class="input-addon">₺/Ay</span>
+                                    </div>
+                                    <span class="field-hint">Borçlarınızı daha hızlı kapatmak için aylık minimum ödemelerinizin üzerine ayırabileceğiniz ek tutar.</span>
+                                </div>
+                            </div>
+
+                            <div class="divider">Mevcut Borç Yapınız</div>
+
+                            <div class="mini-card-list flex-column gap-sm">
+                                <div class="mini-card" style="padding: 12px 16px;">
+                                    <span class="mini-card-title">Toplam Aylık Minimum Ödeme</span>
+                                    <span class="mini-card-value" id="strategy-total-min-payment" style="font-size: 16px;">0,00 ₺</span>
+                                </div>
+                                <div class="mini-card" style="padding: 12px 16px;">
+                                    <span class="mini-card-title">Kullanılabilir Ekstra Ödeme</span>
+                                    <span class="mini-card-value text-success" id="strategy-available-extra" style="font-size: 16px;">0,00 ₺</span>
+                                </div>
+                                <div class="mini-card" style="padding: 12px 16px;">
+                                    <span class="mini-card-title">Toplam Aylık Hızlandırılmış Bütçe</span>
+                                    <span class="mini-card-value text-warning" id="strategy-total-payoff-budget" style="font-size: 16px;">0,00 ₺</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sağ Kolon: Karşılaştırma Sonuçları ve Öneri -->
+                        <div class="glass-card flex-column gap-md">
+                            <h3 class="card-subtitle">Yöntem Karşılaştırma Analizi</h3>
+                            
+                            <div class="strategy-comparison-summary" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                <div class="mini-card text-center" style="border-color: rgba(34, 211, 238, 0.3);">
+                                    <span class="mini-card-title" style="color: #22d3ee; font-weight: 600;">Çığ (Avalanche)</span>
+                                    <div style="font-size: 20px; font-weight: 800; margin-top: 5px;" id="strategy-avalanche-months">0 Ay</div>
+                                    <span class="field-hint" id="strategy-avalanche-interest" style="font-size: 11px;">Toplam Faiz: 0 ₺</span>
+                                </div>
+                                <div class="mini-card text-center" style="border-color: rgba(249, 115, 22, 0.3);">
+                                    <span class="mini-card-title" style="color: #f97316; font-weight: 600;">Kartopu (Snowball)</span>
+                                    <div style="font-size: 20px; font-weight: 800; margin-top: 5px;" id="strategy-snowball-months">0 Ay</div>
+                                    <span class="field-hint" id="strategy-snowball-interest" style="font-size: 11px;">Toplam Faiz: 0 ₺</span>
+                                </div>
+                            </div>
+
+                            <div class="strategy-recommendation-box" style="background: rgba(99, 102, 241, 0.05); border: 1px solid rgba(99, 102, 241, 0.15); padding: 15px; border-radius: var(--radius-sm); font-size: 13.5px; line-height: 1.6;" id="strategy-recommendation-text">
+                                Karşılaştırma analizini görmek için lütfen bütçe ve borç bilgilerinizi girin.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kredi Kartı Asgari Ödeme Tuzağı Simülatörü -->
+                    <div class="glass-card" style="margin-top: 30px;">
+                        <h3 class="card-subtitle">💳 Kredi Kartı Asgari Ödeme Tuzağı Simülatörü</h3>
+                        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">Sadece asgari tutarı öderseniz borcunuzun ne kadar sürede biteceğini ve toplam faiz yükünü görün.</p>
+                        
+                        <div class="grid-two-columns" style="grid-template-columns: 1fr 1.2fr; gap: 25px;">
+                            <div>
+                                <form id="cc-trap-form" class="form-container">
+                                    <div class="form-group">
+                                        <label for="input-cc-balance">Kredi Kartı Toplam Dönem Borcu</label>
+                                        <div class="input-wrapper input-danger">
+                                            <input type="number" id="input-cc-balance" min="1" placeholder="Örn. 50000" required>
+                                            <span class="input-addon currency-symbol">₺</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group-row">
+                                        <div class="form-group">
+                                            <label for="input-cc-interest">Aylık Akdi Faiz (%)</label>
+                                            <div class="input-wrapper">
+                                                <input type="number" id="input-cc-interest" min="0" value="4.25" step="0.01" required>
+                                                <span class="input-addon">%</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="input-cc-min-ratio">Asgari Ödeme Oranı (%)</label>
+                                            <div class="input-wrapper">
+                                                <input type="number" id="input-cc-min-ratio" min="10" max="100" value="20" required>
+                                                <span class="input-addon">%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input-cc-fixed-pay">Alternatif: Aylık Sabit Ödeme (₺/Ay)</label>
+                                        <div class="input-wrapper input-success">
+                                            <input type="number" id="input-cc-fixed-pay" min="1" placeholder="Örn. 5000 (Boş bırakılabilir)">
+                                            <span class="input-addon currency-symbol">₺</span>
+                                        </div>
+                                        <span class="field-hint">Asgariden fazla ödeyeceğiniz sabit tutar (tuzağı önlemek için).</span>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div style="display:flex; flex-direction:column; gap: 15px;">
+                                <div class="mini-card-list" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                    <div class="mini-card text-center" style="border-color: rgba(244, 63, 94, 0.25);">
+                                        <span class="mini-card-title">Sadece Asgari Ödenirse</span>
+                                        <div id="cc-trap-asgari-months" style="font-size: 16px; font-weight: 800; margin-top: 5px; color: var(--color-danger);">0 Ay</div>
+                                        <span class="field-hint" id="cc-trap-asgari-interest" style="font-size: 11px;">Faiz: 0 ₺</span>
+                                    </div>
+                                    <div class="mini-card text-center" style="border-color: rgba(16, 185, 129, 0.25);">
+                                        <span class="mini-card-title">Aylık Sabit Ödenirse</span>
+                                        <div id="cc-trap-sabit-months" style="font-size: 16px; font-weight: 800; margin-top: 5px; color: var(--color-success);">0 Ay</div>
+                                        <span class="field-hint" id="cc-trap-sabit-interest" style="font-size: 11px;">Faiz: 0 ₺</span>
+                                    </div>
+                                </div>
+                                
+                                <div id="cc-trap-result-box" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 15px; border-radius: var(--radius-sm); font-size: 13px; line-height: 1.5; color: var(--text-secondary);">
+                                    Lütfen hesaplama için kredi kartı dönem borcunu girin.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alt Bölüm: Projeksiyon Grafiği ve Kapanış Sırası -->
+                    <div class="reports-grid" style="margin-top: 30px;">
+                        <div class="glass-card chart-card">
+                            <h3 class="card-subtitle">Borç Azalma Eğrisi Karşılaştırması</h3>
+                            <div class="chart-wrapper">
+                                <canvas id="chart-strategy-comparison"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="glass-card">
+                            <h3 class="card-subtitle">Borç Kapanış Sıralaması</h3>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 10px;">
+                                <div>
+                                    <h4 style="font-size: 13px; color: #22d3ee; margin-bottom: 10px; font-weight: 700; border-bottom: 1px solid rgba(34, 211, 238, 0.2); padding-bottom: 5px;">Çığ Yöntemi Sıralaması</h4>
+                                    <ol id="strategy-avalanche-order" class="strategy-order-list" style="padding-left: 18px; font-size: 13px; display: flex; flex-direction: column; gap: 8px; color: var(--text-secondary);">
+                                        <!-- Javascript ile doldurulacaktır -->
+                                    </ol>
+                                </div>
+                                <div>
+                                    <h4 style="font-size: 13px; color: #f97316; margin-bottom: 10px; font-weight: 700; border-bottom: 1px solid rgba(249, 115, 22, 0.2); padding-bottom: 5px;">Kartopu Yöntemi Sıralaması</h4>
+                                    <ol id="strategy-snowball-order" class="strategy-order-list" style="padding-left: 18px; font-size: 13px; display: flex; flex-direction: column; gap: 8px; color: var(--text-secondary);">
+                                        <!-- Javascript ile doldurulacaktır -->
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- BÖLÜM 4: DETAYLI RAPORLAR VE GRAFİKLER -->
+                <section id="section-reports" class="content-section">
+                    <div class="section-title">
+                        <h2>Detaylı Analiz ve Grafikler</h2>
+                        <p>Finansal durumunuzun grafiksel projeksiyonu ve tasarruf göstergeleri.</p>
+                    </div>
+
+                    <div class="reports-grid">
+                        <!-- Grafik 1: Gelir - Gider Karşılaştırması -->
+                        <div class="glass-card chart-card">
+                            <h3 class="card-subtitle">Gelir, Gider ve Tasarruf Karşılaştırması</h3>
+                            <div class="chart-wrapper">
+                                <canvas id="chart-income-vs-expense"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Grafik 2: Tasarruf Oranı Göstergesi -->
+                        <div class="glass-card chart-card">
+                            <h3 class="card-subtitle">Tasarruf Oranı Göstergesi (Hedef %20+)</h3>
+                            <div class="chart-wrapper">
+                                <canvas id="chart-savings-gauge"></canvas>
+                            </div>
+                            <div class="gauge-sub-info" id="savings-gauge-status-text">Tasarruf oranınız %0.0 düzeyindedir.</div>
+                        </div>
+
+                        <!-- Grafik 3: Borç Ödeme Planı (Azalma Projeksiyonu) -->
+                        <div class="glass-card chart-card full-row">
+                            <h3 class="card-subtitle">Gelecek Borç Ödeme ve Azalma Projeksiyonu</h3>
+                            <div class="chart-wrapper-large">
+                                <canvas id="chart-debt-amortization"></canvas>
+                            </div>
+                            <span class="field-hint">Grafik, önümüzdeki aylarda ödeyeceğiniz taksitlerle borç anaparanızın nasıl azalacağını gösterir.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- BÖLÜM 5: GEÇMİŞ TRENDLERİ VE ENFLASYON PROJEKSİYONU -->
+                <section id="section-history" class="content-section">
+                    <div class="section-title">
+                        <h2>Geçmiş Analizi ve Enflasyon Projeksiyonu</h2>
+                        <p>Son 6 aylık finansal durumunuzun trendlerini izleyin ve gelecek yılın enflasyon ayarlı tahminlerini analiz edin.</p>
+                    </div>
+
+                    <div class="reports-grid" style="margin-bottom: 30px;">
+                        <!-- Son 6 Ay Karşılaştırma Grafiği -->
+                        <div class="glass-card chart-card">
+                            <h3 class="card-subtitle">Son 6 Aylık Finansal Trend (Gelir vs Gider)</h3>
+                            <div class="chart-wrapper">
+                                <canvas id="chart-history-trend"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Geçen Ay vs Bu Ay Yüzdelik Değişim -->
+                        <div class="glass-card flex-column gap-md">
+                            <h3 class="card-subtitle">Geçen Aya Göre Finansal Değişim</h3>
+                            
+                            <div style="display:flex; flex-direction:column; gap: 15px; margin-top: 5px;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; padding: 12px 16px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+                                    <div>
+                                        <div style="font-size: 14px; font-weight: 700;">Gelir Değişimi</div>
+                                        <div style="font-size: 12px; color: var(--text-muted);" id="change-income-prev">Geçen ay: -</div>
+                                    </div>
+                                    <div id="change-income-badge" style="font-size: 14px; font-weight: 800;">-</div>
+                                </div>
+
+                                <div style="display:flex; justify-content:space-between; align-items:center; padding: 12px 16px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+                                    <div>
+                                        <div style="font-size: 14px; font-weight: 700;">Gider Değişimi</div>
+                                        <div style="font-size: 12px; color: var(--text-muted);" id="change-expense-prev">Geçen ay: -</div>
+                                    </div>
+                                    <div id="change-expense-badge" style="font-size: 14px; font-weight: 800;">-</div>
+                                </div>
+
+                                <div style="display:flex; justify-content:space-between; align-items:center; padding: 12px 16px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+                                    <div>
+                                        <div style="font-size: 14px; font-weight: 700;">Tasarruf Değişimi</div>
+                                        <div style="font-size: 12px; color: var(--text-muted);" id="change-savings-prev">Geçen ay: -</div>
+                                    </div>
+                                    <div id="change-savings-badge" style="font-size: 14px; font-weight: 800;">-</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enflasyon Ayarlı 12 Aylık Projeksiyon -->
+                    <div class="glass-card" style="margin-top: 30px;">
+                        <h3 class="card-subtitle">📈 Yıllık Enflasyon Ayarlı Gelecek Yıl Projeksiyonu</h3>
+                        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">Tahmini yıllık enflasyon ve maaş zam oranlarınıza göre 12 aylık bütçe ve birikim gelişim tahmininizi görün.</p>
+                        
+                        <div class="grid-two-columns" style="grid-template-columns: 1fr 1.8fr; gap: 30px;">
+                            <div>
+                                <form id="inflation-proj-form" class="form-container">
+                                    <div class="form-group">
+                                        <label for="input-annual-inflation">Yıllık Beklenen Enflasyon Oranı (%)</label>
+                                        <div class="input-wrapper">
+                                            <input type="number" id="input-annual-inflation" min="0" value="45" required>
+                                            <span class="input-addon">%</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input-income-raise">Beklenen Yıllık Maaş Zam Oranı (%)</label>
+                                        <div class="input-wrapper">
+                                            <input type="number" id="input-income-raise" min="0" value="40" required>
+                                            <span class="input-addon">%</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input-raise-month">Maaş Zammının Yapılacağı Ay</label>
+                                        <select id="input-raise-month" required>
+                                            <option value="1">1. Ay</option>
+                                            <option value="6">6. Ay</option>
+                                            <option value="7" selected>7. Ay</option>
+                                            <option value="12">12. Ay</option>
+                                        </select>
+                                        <span class="field-hint">Maaş artışının hangi aydan itibaren geçerli olacağı.</span>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="chart-card">
+                                <div class="chart-wrapper" style="height:280px;">
+                                    <canvas id="chart-inflation-projection"></canvas>
+                                </div>
+                                <div style="font-size:12px; color: var(--text-muted); text-align:center; margin-top: 10px;" id="inflation-proj-desc">
+                                    Maaş zammı ve aylık enflasyon erimesine göre bütçe nakit akışı tahmini.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- BÖLÜM 6: HANE BAZLI PAYLAŞIMLI BÜTÇE -->
+                <section id="section-household" class="content-section">
+                    <div class="section-title">
+                        <h2>Hane Bütçesi ve Ortak Gider Paylaşımı</h2>
+                        <p>Aile üyelerini veya ev arkadaşlarınızı bütçenize ortak edin, giderleri kimin karşıladığını görün ve borç dengesini yönetin.</p>
+                    </div>
+
+                    <div class="grid-two-columns">
+                        <!-- Sol Kolon: Üye Yönetimi ve Ortaklık -->
+                        <div class="glass-card flex-column gap-md">
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); margin-bottom: 10px;">
+                                <h3 style="font-size: 16px; font-weight: 700; color: var(--text-primary); margin:0;">👥 Hane Üyeleri</h3>
+                                <button class="btn btn-primary" id="btn-add-member-trigger" style="padding: 6px 12px; font-size: 12px; border-radius: var(--radius-sm);">Üye Ekle</button>
+                            </div>
+
+                            <div id="member-form-wrapper" style="display: none; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); padding: 15px; border-radius: var(--radius-sm); margin-bottom: 15px; animation: fadeIn 0.3s ease;">
+                                <form id="member-form" class="form-container">
+                                    <div class="form-group-row">
+                                        <div class="form-group" style="flex: 2;">
+                                            <label for="input-member-name">Üye Adı</label>
+                                            <input type="text" id="input-member-name" placeholder="Örn. Canan (Eş)" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="input-member-role">Rolü</label>
+                                            <select id="input-member-role" required>
+                                                <option value="Ben">Ben</option>
+                                                <option value="Eş">Eş</option>
+                                                <option value="Ev Arkadaşı">Ev Arkadaşı</option>
+                                                <option value="Aile Üyesi">Aile Üyesi</option>
+                                                <option value="Diğer">Diğer</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div style="display:flex; gap: 10px; justify-content: flex-end; margin-top: 10px;">
+                                        <button type="button" class="btn btn-secondary" id="btn-cancel-member" style="padding: 8px 16px; font-size: 12px;">Vazgeç</button>
+                                        <button type="submit" class="btn btn-primary" style="padding: 8px 16px; font-size: 12px;">Üyeyi Ekle</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Üye Adı</th>
+                                            <th>Rol</th>
+                                            <th>Gider Payı</th>
+                                            <th>İşlemler</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="members-table-body">
+                                        <tr class="empty-members-row">
+                                            <td colspan="4" class="text-center text-muted">Henüz hane üyesi eklenmedi. (Sadece "Ben" varsayılandır).</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Sağ Kolon: Hane Harcama Dağılımı ve Borç/Alacak Dengesi -->
+                        <div class="flex-column gap-lg">
+                            <div class="glass-card">
+                                <h3 class="card-subtitle">Hane Harcama Dağılımı</h3>
+                                <div class="charts-box" style="position: relative; height:220px; margin: 10px 0;">
+                                    <canvas id="chart-household-distribution"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alt Satır: Ortak Harcamalar Paylaşım Matrisi -->
+                    <div class="glass-card" style="margin-top: 30px;">
+                        <h3 class="card-subtitle">💵 Hane Ortak Gider Paylaşımı (Kim Kime Ne Kadar Borçlu?)</h3>
+                        <p style="font-size: 12.5px; color: var(--text-secondary); margin-bottom: 20px;">Hane içindeki ortak harcamalar eşit bölüşüldüğünde oluşan borç dengesidir.</p>
+                        
+                        <div class="grid-two-columns" style="grid-template-columns: 1fr 1fr; gap: 30px;">
+                            <div>
+                                <h4 style="font-size: 14px; margin-bottom: 12px; font-weight:700;">Hane Ortak Bütçe Formu</h4>
+                                <form id="household-expense-form" class="form-container">
+                                    <div class="form-group">
+                                        <label for="input-h-expense-name">Ortak Harcama Başlığı</label>
+                                        <input type="text" id="input-h-expense-name" placeholder="Örn. Kira veya Haftalık Market Harcaması" required>
+                                    </div>
+                                    <div class="form-group-row">
+                                        <div class="form-group">
+                                            <label for="input-h-expense-amount">Tutar</label>
+                                            <div class="input-wrapper">
+                                                <input type="number" id="input-h-expense-amount" min="1" placeholder="Örn. 3000" required>
+                                                <span class="input-addon currency-symbol">₺</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="input-h-expense-payer">Ödeyen Üye</label>
+                                            <select id="input-h-expense-payer" required>
+                                                <!-- Javascript ile doldurulacaktır -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">Ortak Harcamayı Kaydet</button>
+                                </form>
+                            </div>
+
+                            <div style="display:flex; flex-direction:column; gap: 15px;">
+                                <h4 style="font-size: 14px; margin-bottom: 5px; font-weight:700;">Gider Dengeleme Sonuçları</h4>
+                                <div id="household-balance-box" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 15px; border-radius: var(--radius-sm); font-size: 13.5px; line-height: 1.6; color: var(--text-secondary);">
+                                    Hesaplama için lütfen hane üyesi ekleyin ve en az bir ortak harcama kaydedin.
+                                </div>
+                                <div class="table-responsive" style="max-height: 180px; overflow-y: auto;">
+                                    <table class="table" style="font-size: 12.5px;" id="household-expenses-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Gider Adı</th>
+                                                <th>Ödeyen</th>
+                                                <th>Tutar</th>
+                                                <th>İşlemler</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="household-expenses-list-body">
+                                            <tr class="empty-h-expenses-row">
+                                                <td colspan="4" class="text-center text-muted">Ortak harcama bulunmamaktadır.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Giriş Ekranı (Login/Register Screen) -->
+    <div class="login-screen-container" id="login-screen">
+        <div class="login-box glass-card">
+            <div class="login-logo">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="var(--color-success)"/>
+                </svg>
+                <span>Finans<span class="logo-accent" style="color: var(--color-success);">360</span></span>
+            </div>
+            
+            <h2 class="login-title" id="auth-title">Sisteme Giriş Yapın</h2>
+            <p class="login-desc" id="auth-desc">Finansal durumunuzu ve yaşam maliyetinizi yönetmeye başlamak için bilgilerinizi girin.</p>
+            
+            <!-- Hata/Başarı Mesajları için Banner -->
+            <div id="auth-message" style="display: none; padding: 10px; border-radius: 6px; margin-bottom: 12px; font-size: 13px; text-align: center; font-weight: 500;"></div>
+            
+            <form id="login-form" class="form-container">
+                <div class="form-group">
+                    <label for="input-login-email">E-posta Adresi</label>
+                    <input type="email" id="input-login-email" placeholder="Örn. demo@finans360.com" value="demo@finans360.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="input-login-password">Şifre</label>
+                    <input type="password" id="input-login-password" placeholder="••••••••" value="123456" required>
+                </div>
+
+                <div class="login-help-text" id="auth-help-text">
+                    <span>Demo Kullanıcı: <strong>demo@finans360.com</strong> / Şifre: <strong>123456</strong></span>
+                </div>
+                
+                <button type="submit" id="btn-auth-submit" class="btn btn-primary" style="width:100%; margin-top: 10px;">Giriş Yap</button>
+                
+                <div style="text-align: center; margin-top: 15px; font-size: 13px;">
+                    <a href="#" id="auth-toggle-link" style="color: var(--color-success); text-decoration: none; font-weight: 600;">Hesabınız yok mu? Kayıt Olun</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Javascript Dosyası -->
+    <script src="app.js"></script>
+</body>
+</html>
